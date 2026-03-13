@@ -25,7 +25,9 @@ public class PlayerShooting : MonoBehaviour
     private AudioSource gunAudio;
     public LineRenderer gunLineRenderer;
     
-    
+    [Header("Projectile")]
+    [SerializeField] private Projectile projectilePrefab;
+    [SerializeField] private Transform projectileSpawnPoint;
 
     [Header("References")]
     public CinemachineCamera playerCamera;
@@ -95,16 +97,23 @@ public class PlayerShooting : MonoBehaviour
     {
         Debug.Log($"Shoot performed: {ctx.action.name}");
 
-        if (gunAudio != null && gunProjectileSound != null)
-        {
-            gunAudio.PlayOneShot(gunProjectileSound);
-        }
-        
-
         if (playerCamera == null)
         {
             Debug.LogWarning("PlayerShooting: playerCamera is null.");
             return;
+        }
+
+        if (projectilePrefab != null)
+        {
+            var projectileTransform = projectileSpawnPoint != null ? projectileSpawnPoint : playerCamera.transform;
+            var launchDirection = projectileSpawnPoint != null ? projectileSpawnPoint.forward : playerCamera.transform.forward;
+            var projectile = Instantiate(projectilePrefab, projectileTransform.position, projectileTransform.rotation);
+            projectile.Launch(launchDirection);
+        }
+
+        if (gunAudio != null && gunProjectileSound != null)
+        {
+            gunAudio.PlayOneShot(gunProjectileSound);
         }
 
         Vector3 origin = playerCamera.transform.position;

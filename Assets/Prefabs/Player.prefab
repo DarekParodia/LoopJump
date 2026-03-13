@@ -103,8 +103,9 @@ MonoBehaviour:
   range: 20
   CanShoot: 1
   gunProjectileSound: {fileID: 8300000, guid: c3abe1647ac6b4de493c6e634bd3087c, type: 3}
-  gunAudio: {fileID: 0}
   gunLineRenderer: {fileID: -8389424533817631785}
+  projectilePrefab: {fileID: 5037916973141201973, guid: 38c9be2df287e41cd9334d9219abd08d, type: 3}
+  projectileSpawnPoint: {fileID: 0}
   playerCamera: {fileID: 3891230636257895539}
 --- !u!120 &-8389424533817631785
 LineRenderer:

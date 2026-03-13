@@ -17,10 +17,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private InputActionReference moveAction;
     [SerializeField] private InputActionReference jumpAction;
+    [SerializeField] private InputActionReference sprintAction;
     
     private CharacterController _characterController;
     private Vector2 _moveInput;
     private bool _isGrounded;
+    private bool _isSprinting;
     private float _verticalVelocity;
     private void Awake()
     {
@@ -32,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
         moveAction.action.performed += StoreMovementInput;
         moveAction.action.canceled += StoreMovementInput;
         jumpAction.action.performed += Jump;
+        sprintAction.action.performed += Sprint;
     }
 
     private void OnDisable()
@@ -39,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
         moveAction.action.performed -= StoreMovementInput;
         moveAction.action.canceled -= StoreMovementInput;
         jumpAction.action.performed -= Jump;
+        sprintAction.action.performed -= Sprint;
     }
 
     // Update is called once per frame
@@ -61,6 +65,10 @@ public class PlayerMovement : MonoBehaviour
             _verticalVelocity = jumpForce;
         }
     }
+    private void Sprint(InputAction.CallbackContext ctx)
+    {
+        _isSprinting = ctx.performed;
+    }
 
     private void HandleGravity()
     {
@@ -75,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
     private void HandleMovement()
     {
         var move = cameraTransform.TransformDirection(new Vector3(_moveInput.x, 0, _moveInput.y)).normalized;
-        var currentSpeed = walkSpeed;
+        var currentSpeed = _isSprinting ? runSpeed : walkSpeed;
         var finalMove = move * currentSpeed;
         finalMove.y = _verticalVelocity;
         

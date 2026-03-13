@@ -1336,6 +1336,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5923097359850441123}
     m_Modifications:
+    - target: {fileID: 904209138878387962, guid: b7096310332482253a22475aa024b7a4, type: 3}
+      propertyPath: linkedPortal
+      value: 
+      objectReference: {fileID: 7810847987799840437}
     - target: {fileID: 4089000016453766179, guid: b7096310332482253a22475aa024b7a4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 44.6
@@ -1450,5 +1454,10 @@ PrefabInstance:
 --- !u!4 &6306505643234418088 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4089000016453766179, guid: b7096310332482253a22475aa024b7a4, type: 3}
+  m_PrefabInstance: {fileID: 8014787350849704331}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7810847987799840437 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 243065178115180350, guid: b7096310332482253a22475aa024b7a4, type: 3}
   m_PrefabInstance: {fileID: 8014787350849704331}
   m_PrefabAsset: {fileID: 0}

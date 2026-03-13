@@ -51,15 +51,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6964f15d4d75cce6eb78919c82fe733b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  walkSpeed: 10
+  walkSpeed: 20
   runSpeed: 15
   crouchSpeed: 5
+  acceleration: 50
+  deceleration: 60
   jumpForce: 12
   gravity: -18
   initialFallVelocity: -4
   cameraTransform: {fileID: 6218551618834749736}
   moveAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   jumpAction: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  sprintAction: {fileID: 0}
 --- !u!143 &7944446734907677869
 CharacterController:
   m_ObjectHideFlags: 0
@@ -497,6 +500,7 @@ GameObject:
   - component: {fileID: 3891230636257895539}
   - component: {fileID: 7267584401387404844}
   - component: {fileID: 1497187590080419423}
+  - component: {fileID: 5743836825316872162}
   m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: Untagged
@@ -512,7 +516,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8915425064557815886}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.24990042, y: -0.53043884, z: -0.16724318, w: 0.7925996}
+  m_LocalRotation: {x: -0.38180918, y: 0.0022546402, z: 0.0009314077, w: 0.92423797}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -578,7 +582,7 @@ MonoBehaviour:
   ReferenceFrame: 0
   RecenterTarget: 0
   PanAxis:
-    Value: -67.58399
+    Value: 0.2795408
     Center: 0
     Range: {x: -180, y: 180}
     Wrap: 1
@@ -588,7 +592,7 @@ MonoBehaviour:
       Time: 2
     Restrictions: 0
   TiltAxis:
-    Value: -34.999302
+    Value: -44.891727
     Center: 0
     Range: {x: -70, y: 70}
     Wrap: 0
@@ -638,3 +642,18 @@ MonoBehaviour:
         DecelTime: 0.2
   PlayerIndex: -1
   AutoEnableInputs: 1
+--- !u!114 &5743836825316872162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8915425064557815886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42a8e09c0c6f78892a95130d0eb12310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraTilt
+  tiltAmount: 2.72
+  tiltSpeed: 6.3
+  moveAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}

@@ -8,6 +8,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float runSpeed = 8f;
     [SerializeField] private float crouchSpeed = 2f;
 
+    [Header("Acceleration")]
+    [SerializeField] private float acceleration = 2000f;
+    [SerializeField] private float deceleration = 3000f;
+
     [Header("Jump and Fall")] 
     [SerializeField] private float jumpForce = 7f;
     [SerializeField] private float gravity = -12f;
@@ -17,11 +21,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private InputActionReference moveAction;
     [SerializeField] private InputActionReference jumpAction;
+    [SerializeField] private InputActionReference sprintAction;
     
     private CharacterController _characterController;
     private Vector2 _moveInput;
+    private Vector3 _currentVelocity;
     private bool _isGrounded;
+    private bool _isSprinting;
     private float _verticalVelocity;
+
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
@@ -32,6 +40,8 @@ public class PlayerMovement : MonoBehaviour
         moveAction.action.performed += StoreMovementInput;
         moveAction.action.canceled += StoreMovementInput;
         jumpAction.action.performed += Jump;
+        sprintAction.action.performed += _ => _isSprinting = true;
+        sprintAction.action.canceled += _ => _isSprinting = false;
     }
 
     private void OnDisable()
@@ -39,9 +49,10 @@ public class PlayerMovement : MonoBehaviour
         moveAction.action.performed -= StoreMovementInput;
         moveAction.action.canceled -= StoreMovementInput;
         jumpAction.action.performed -= Jump;
+        sprintAction.action.performed -= _ => _isSprinting = true;
+        sprintAction.action.canceled -= _ => _isSprinting = false;
     }
 
-    // Update is called once per frame
     private void Update()
     {
         _isGrounded = _characterController.isGrounded;
@@ -64,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleGravity()
     {
-        if(_isGrounded && _verticalVelocity < 0)
+        if (_isGrounded && _verticalVelocity < 0)
         {
             _verticalVelocity = initialFallVelocity;
         }
@@ -74,13 +85,22 @@ public class PlayerMovement : MonoBehaviour
     
     private void HandleMovement()
     {
-        var move = cameraTransform.TransformDirection(new Vector3(_moveInput.x, 0, _moveInput.y)).normalized;
-        var currentSpeed = walkSpeed;
-        var finalMove = move * currentSpeed;
+        var targetDirection = cameraTransform.TransformDirection(new Vector3(_moveInput.x, 0, _moveInput.y));
+        targetDirection.y = 0;
+        if (targetDirection.magnitude > 1f)
+            targetDirection.Normalize();
+
+        var currentSpeed = _isSprinting ? runSpeed : walkSpeed;
+        var targetVelocity = targetDirection * currentSpeed;
+
+        var rate = targetDirection.magnitude > 0f ? acceleration : deceleration;
+        _currentVelocity = Vector3.MoveTowards(_currentVelocity, targetVelocity, rate * Time.deltaTime);
+
+        var finalMove = _currentVelocity;
         finalMove.y = _verticalVelocity;
         
         var collisions = _characterController.Move(finalMove * Time.deltaTime);
-        if((collisions & CollisionFlags.Above) != 0)
+        if ((collisions & CollisionFlags.Above) != 0)
         {
             _verticalVelocity = initialFallVelocity;
         }
@@ -90,5 +110,4 @@ public class PlayerMovement : MonoBehaviour
     {
         _verticalVelocity = force;
     }
-    
 }

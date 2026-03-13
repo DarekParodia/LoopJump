@@ -36,6 +36,7 @@ public class PlayerHealth : MonoBehaviour
             isDead = true;
             onDeath?.Invoke();
             Debug.Log("[Player] Gracz zginął!");
+            Destroy(gameObject);
         }
     }
 

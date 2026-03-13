@@ -85,5 +85,10 @@ public class PlayerMovement : MonoBehaviour
             _verticalVelocity = initialFallVelocity;
         }
     }
+
+    public void LaunchUp(float force)
+    {
+        _verticalVelocity = force;
+    }
     
 }

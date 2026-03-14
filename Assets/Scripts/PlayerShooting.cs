@@ -15,7 +15,7 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private Image gunImage;
 
     [Header("Gun Settings")]
-    public int damagePerShot = 20;
+    public int damagePerShot = 10;
     public float timeBetweenShots = 0.8f;
     public float range = 50f;
     public bool CanShoot = true;
@@ -155,6 +155,7 @@ public class PlayerShooting : MonoBehaviour
 
     private void Shoot(InputAction.CallbackContext ctx)
     {
+        Debug.Log("kula leci");
         if (playerCamera == null) return;
 
         if (projectilePrefab != null)

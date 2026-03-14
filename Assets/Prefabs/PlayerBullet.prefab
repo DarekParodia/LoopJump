@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 1217384613432828781}
   - component: {fileID: 4549065579623823006}
   - component: {fileID: 6166611189039386144}
-  - component: {fileID: 9047319514542349248}
+  - component: {fileID: 3357449832055057558}
   m_Layer: 0
-  m_Name: Bullet
-  m_TagString: Untagged
+  m_Name: PlayerBullet
+  m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 101.41473, y: 0, z: 66.33093}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalScale: {x: 0.18, y: 0.18, z: 0.18}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -141,7 +141,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &9047319514542349248
+--- !u!114 &3357449832055057558
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -150,10 +150,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 2900328184870061747}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ef98a6d2ca82049ea5ad7216971d4ae, type: 3}
+  m_Script: {fileID: 11500000, guid: 61fb1b32343a99732b2283e70bc9add3, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyProjectile
-  damage: 10
-  speed: 20
-  lifetime: 5
-  playerTag: Player
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerBullet
+  damage: 25
+  lifetime: 4

@@ -89,6 +89,8 @@ public class DoomEnemyController : MonoBehaviour
         Debug.Log($"[DoomEnemy] Awake: {gameObject.name} zainicjalizowany. HP: {currentHealth}");
     }
 
+    
+    
     void Start()
     {
         agent.updateRotation = false; // obracamy sami na podstawie ruchu
@@ -114,7 +116,8 @@ public class DoomEnemyController : MonoBehaviour
 
     void Update()
     {
-        if (state == EnemyState.Dead) return;
+        if (state == EnemyState.Dead) Debug.Log("ziomuś zdycha");
+        if (state == EnemyState.Dead) Destroy(this);
 
         // Throttling AI – nie sprawdzamy każdą klatkę
         aiTimer -= Time.deltaTime;
@@ -240,7 +243,7 @@ public class DoomEnemyController : MonoBehaviour
                 GetComponent<Collider>()?.gameObject.SetActive(false);
                 animator.SetState(DoomSpriteAnimator.AnimState.Death);
                 Debug.Log($"[DoomEnemy] Wróg zginął! Usuwanie obiektu za 3 sekundy.");
-                Destroy(gameObject, 3f); // usuń po 3 sekundach
+                Destroy(gameObject, .25f); // usuń po 3 sekundach
                 break;
         }
     }
@@ -278,6 +281,7 @@ public class DoomEnemyController : MonoBehaviour
     /// </summary>
     public void TakeDamage(float damage)
     {
+        Debug.Log("Damage Taken");
         if (state == EnemyState.Dead) return;
 
         currentHealth -= damage;

@@ -13,17 +13,23 @@ MonoBehaviour:
   m_Name: BasicShootEnemy
   m_EditorClassIdentifier: Assembly-CSharp::DoomEnemySprites
   idle:
-    frames: []
+    frames:
+    - {fileID: 21300000, guid: fc832993fc290bf91b772e8b00dac6d9, type: 3}
+    - {fileID: 21300000, guid: 22aa09535b06dae2ea3cf5588ea73ad7, type: 3}
     framesPerDirection: 1
     fps: 8
     loop: 1
   walk:
-    frames: []
+    frames:
+    - {fileID: 21300000, guid: b168b9bd683c82eb29c837c621212493, type: 3}
+    - {fileID: 21300000, guid: f70eeee37d02226cd9335c635d56e3f1, type: 3}
     framesPerDirection: 1
     fps: 8
     loop: 1
   attack:
-    frames: []
+    frames:
+    - {fileID: 21300000, guid: 4ce02ddc3077f3889959403fbe5c6159, type: 3}
+    - {fileID: 21300000, guid: 3ad5fe8c2dcab1bb5b8426c6f41e87f4, type: 3}
     framesPerDirection: 1
     fps: 8
     loop: 1
@@ -31,9 +37,9 @@ MonoBehaviour:
     frames: []
     framesPerDirection: 1
     fps: 8
-    loop: 1
+    loop: 0
   death:
     frames: []
     framesPerDirection: 1
     fps: 8
-    loop: 1
+    loop: 0

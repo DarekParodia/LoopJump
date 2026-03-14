@@ -4,8 +4,8 @@ using UnityEngine;
 public class EnemyProjectile : MonoBehaviour
 {
     [HideInInspector] public float damage = 10f;
-    [HideInInspector] public float speed = 20f;
-    [HideInInspector] public float lifetime = 5f;
+    [HideInInspector] public float speed = 25f;
+    [HideInInspector] public float lifetime = 4f;
     [HideInInspector] public string playerTag = "Player";
 
     private Rigidbody _rb;

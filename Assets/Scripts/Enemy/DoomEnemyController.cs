@@ -74,6 +74,9 @@ public class DoomEnemyController : MonoBehaviour
     private bool hitQueued;         // czy obrażenia są w kolejce
 
     private float aiTimer;          // timer aktualizacji AI
+    private float boundTimer;       // czas pozostający do końca związania
+
+    public bool IsBound => boundTimer > 0f;
 
     // ─── Unity ───────────────────────────────────────────────────────────────────
 
@@ -115,6 +118,20 @@ public class DoomEnemyController : MonoBehaviour
     void Update()
     {
         if (state == EnemyState.Dead) return;
+
+        if (IsBound)
+        {
+            boundTimer -= Time.deltaTime;
+            agent.isStopped = true;
+            agent.ResetPath();
+            hitQueued = false;
+            UpdateSpriteForward();
+
+            if (boundTimer <= 0f)
+                ReleaseFromBind();
+
+            return;
+        }
 
         // Throttling AI – nie sprawdzamy każdą klatkę
         aiTimer -= Time.deltaTime;
@@ -247,7 +264,7 @@ public class DoomEnemyController : MonoBehaviour
 
     void ResumeAfterPain()
     {
-        if (state == EnemyState.Pain)
+        if (state == EnemyState.Pain && !IsBound)
         {
             Debug.Log($"[DoomEnemy] ResumeAfterPain: Koniec animacji bólu. Wznawianie pościgu.");
             state = EnemyState.Chasing;
@@ -259,6 +276,8 @@ public class DoomEnemyController : MonoBehaviour
 
     void DealDamage()
     {
+        if (IsBound) return;
+
         if (player == null) return;
 
         float dist = Vector3.Distance(transform.position, player.position);
@@ -305,6 +324,47 @@ public class DoomEnemyController : MonoBehaviour
                 Debug.Log($"[DoomEnemy] TakeDamage: Wróg został zaatakowany w stanie Idle. Zaczynam pościg!");
                 SetState(EnemyState.Chasing);
             }
+        }
+    }
+
+    public void Bind(float duration)
+    {
+        if (state == EnemyState.Dead)
+            return;
+
+        boundTimer = Mathf.Max(boundTimer, duration);
+        hitQueued = false;
+        agent.isStopped = true;
+        agent.ResetPath();
+
+        Debug.Log($"[DoomEnemy] Bind: '{gameObject.name}' związany na {boundTimer:F2}s.");
+    }
+
+    void ReleaseFromBind()
+    {
+        boundTimer = 0f;
+
+        if (state == EnemyState.Dead)
+            return;
+
+        if (player == null)
+        {
+            SetState(EnemyState.Idle);
+            return;
+        }
+
+        float distToPlayer = Vector3.Distance(transform.position, player.position);
+        if (distToPlayer <= attackRange && attackTimer <= 0f)
+        {
+            SetState(EnemyState.Attacking);
+        }
+        else if (CanSeePlayer(distToPlayer))
+        {
+            SetState(EnemyState.Chasing);
+        }
+        else
+        {
+            SetState(EnemyState.Idle);
         }
     }
 

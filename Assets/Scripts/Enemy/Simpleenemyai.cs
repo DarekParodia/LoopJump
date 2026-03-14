@@ -45,9 +45,12 @@ public class SimpleEnemyAI : MonoBehaviour
     private Transform player;
     private float currentHealth;
     private float attackTimer;
+    private float boundTimer;
 
     private enum State { Idle, Chasing, Attacking, Dead }
     private State state = State.Idle;
+
+    public bool IsBound => boundTimer > 0f;
 
     // Kierunek omijania przeszkody (smooth steering)
     private Vector3 steeringDir;
@@ -72,6 +75,13 @@ public class SimpleEnemyAI : MonoBehaviour
     void Update()
     {
         if (state == State.Dead) return;
+
+        if (IsBound)
+        {
+            TickBound();
+            return;
+        }
+
         if (player == null) return;
 
         float dist = Vector3.Distance(transform.position, player.position);
@@ -110,6 +120,16 @@ public class SimpleEnemyAI : MonoBehaviour
 
         if (attackTimer > 0f)
             attackTimer -= Time.deltaTime;
+    }
+
+    void TickBound()
+    {
+        boundTimer -= Time.deltaTime;
+        rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
+        ApplyGravity();
+
+        if (boundTimer <= 0f)
+            ReleaseFromBind();
     }
 
     // ─── Ruch ────────────────────────────────────────────────────────────────────
@@ -212,6 +232,32 @@ public class SimpleEnemyAI : MonoBehaviour
 
         if (currentHealth <= 0f)
             Die();
+    }
+
+    public void Bind(float duration)
+    {
+        if (state == State.Dead)
+            return;
+
+        boundTimer = Mathf.Max(boundTimer, duration);
+        rb.linearVelocity = Vector3.zero;
+    }
+
+    void ReleaseFromBind()
+    {
+        boundTimer = 0f;
+
+        if (state == State.Dead)
+            return;
+
+        if (player == null)
+        {
+            state = State.Idle;
+            return;
+        }
+
+        float dist = Vector3.Distance(transform.position, player.position);
+        state = dist <= detectionRange ? State.Chasing : State.Idle;
     }
 
     void Die()

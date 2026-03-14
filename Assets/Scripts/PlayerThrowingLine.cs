@@ -37,11 +37,14 @@ public class PlayerThrowingLine : MonoBehaviour
     [SerializeField] private Line linePrefab;
     
     [SerializeField] private Transform lineSpawnPoint;
+    [SerializeField] private Vector3 lineOriginLocalOffset = new Vector3(0f, -0.4f, 0f);
 
     [SerializeField, Min(0f)] private float rateOfFire = 0.5f;
 
     [SerializeField] private float lineSpeed = 30f;
     [SerializeField] private float lineLifetime = 2f;
+    [SerializeField, Min(0.1f)] private float maxLineLength = 12f;
+    [SerializeField, Min(0.1f)] private float lineRetractSpeed = 40f;
 
     [Header("Direction")]
     [SerializeField] private CinemachineCamera playerCamera;
@@ -50,6 +53,7 @@ public class PlayerThrowingLine : MonoBehaviour
 
     private Coroutine _animCoroutine;
     private Sprite _spr1, _spr2, _spr3, _spr4;
+    private Line _activeLine;
 
     private float _nextAllowedTime;
 
@@ -114,8 +118,10 @@ public class PlayerThrowingLine : MonoBehaviour
 
     private void OnLineKey(InputAction.CallbackContext _)
     {
-       
         if (_playerShootingScript != null && _playerShootingScript.CanUseGun && _playerShootingScript.IsShootingNow)
+            return;
+
+        if (_activeLine != null && !_activeLine.IsFinished)
             return;
 
         if (Time.time < _nextAllowedTime)
@@ -142,25 +148,22 @@ public class PlayerThrowingLine : MonoBehaviour
         }
 
         var spawnT = lineSpawnPoint != null ? lineSpawnPoint : transform;
+        var aimT = playerCamera != null ? playerCamera.transform : spawnT;
 
-        Vector3 dir = spawnT.forward;
-        if (playerCamera != null)
-            dir = playerCamera.transform.forward;
+        Vector3 dir = aimT.forward;
 
         // obróć lekko w pionie (pitch) względem osi kamery/gracza
         if (Mathf.Abs(linePitchDegrees) > 0.001f)
         {
-            var axis = playerCamera != null ? playerCamera.transform.right : spawnT.right;
+            var axis = aimT.right;
             dir = Quaternion.AngleAxis(linePitchDegrees, axis) * dir;
         }
 
-        var pos = spawnT.position;
-        if (playerCamera != null)
-            pos = playerCamera.transform.position + dir.normalized * 0.6f;
-
+        var pos = spawnT.TransformPoint(lineOriginLocalOffset);
         var rot = Quaternion.LookRotation(dir.normalized);
-        var line = Instantiate(linePrefab, pos, rot);
-        line.Launch(dir, lineSpeed, lineLifetime);
+
+        _activeLine = Instantiate(linePrefab, pos, rot);
+        _activeLine.Launch(spawnT, lineOriginLocalOffset, dir, lineSpeed, maxLineLength, lineLifetime, lineRetractSpeed);
     }
 
     private void PlayLineThrowAnimation()

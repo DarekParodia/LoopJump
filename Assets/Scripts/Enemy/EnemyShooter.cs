@@ -80,6 +80,11 @@ public class EnemyShooter : MonoBehaviour
             return;
         }
 
+        if (enemy != null && enemy.IsBound)
+        {
+            return;
+        }
+
         fireTimer -= Time.deltaTime;
 
         if (enemy != null)

@@ -109,6 +109,11 @@ MonoBehaviour:
   CanShoot: 1
   gunProjectileSound: {fileID: 8300000, guid: c3abe1647ac6b4de493c6e634bd3087c, type: 3}
   gunLineRenderer: {fileID: -8389424533817631785}
+  tex1: {fileID: 2800000, guid: a4b585d952c38e750a71c9fb107fb4ff, type: 3}
+  tex2: {fileID: 2800000, guid: 9a16690aa886986bca847f9ec2954a94, type: 3}
+  tex3: {fileID: 2800000, guid: 892ec2a5f6c1c17a8809ff4f2cad9ff9, type: 3}
+  tex4: {fileID: 2800000, guid: 783dcf2a3dc5445e3ade13ded451f4cb, type: 3}
+  gunShotFrameTime: 0.06
   projectilePrefab: {fileID: 5037916973141201973, guid: 38c9be2df287e41cd9334d9219abd08d, type: 3}
   projectileSpawnPoint: {fileID: 0}
   playerCamera: {fileID: 3891230636257895539}
@@ -642,6 +647,7 @@ MonoBehaviour:
         DecelTime: 0.2
   PlayerIndex: -1
   AutoEnableInputs: 1
+<<<<<<< HEAD
 --- !u!114 &5743836825316872162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -657,3 +663,5 @@ MonoBehaviour:
   tiltAmount: 2.72
   tiltSpeed: 6.3
   moveAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+=======
+>>>>>>> refs/remotes/origin/post-process

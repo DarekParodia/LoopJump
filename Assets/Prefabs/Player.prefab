@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -1958162498425634967}
   - component: {fileID: 6775739574875489341}
   - component: {fileID: 3097612692563619870}
+  - component: {fileID: 5228260203582980060}
   - component: {fileID: -1953594134393393780}
   m_Layer: 0
   m_Name: Player
@@ -102,6 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShooting
   attack: {fileID: 1120369429361536294, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  reloadAction: {fileID: 0}
   interfaceCanvas: {fileID: 0}
   gunImage: {fileID: 0}
   damagePerShot: 20
@@ -364,6 +366,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   maxHealth: 100
   currentHealth: 0
+--- !u!114 &5228260203582980060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7295354093685116555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae3988b0c87748caafe6a56133bd5f57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAmmo
+  maxAmmo: 10
+  currentAmmo: 10
 --- !u!114 &-1953594134393393780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -606,7 +622,7 @@ MonoBehaviour:
   ReferenceFrame: 0
   RecenterTarget: 0
   PanAxis:
-    Value: 0.2795408
+    Value: 0.27954102
     Center: 0
     Range: {x: -180, y: 180}
     Wrap: 1

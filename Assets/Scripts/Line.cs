@@ -22,6 +22,9 @@ public class Line : MonoBehaviour
     [Tooltip("Jeśli włączone, lina będzie billboardem do kamery (zawsze czytelna) i ustawiona poziomo.")]
     [SerializeField] private bool alignToCamera = true;
 
+    [Tooltip("Billboard tylko w poziomie (yaw). Ignoruje pitch kamery, więc nie wygląda jak lecąca deska.")]
+    [SerializeField] private bool billboardYawOnly = true;
+
     [Tooltip("Dodatkowy obrót wokół osi 'forward' kamery (roll) w stopniach. Często 90 lub 0, zależnie jak jest narysowana tekstura.")]
     [SerializeField] private float rollDegrees = 0f;
 
@@ -122,16 +125,29 @@ public class Line : MonoBehaviour
         if (_mainCam == null)
             return;
 
-        // Billboard: sprite patrzy na kamerę.
-        // 'up' ustawiamy na Vector3.up, żeby nie kręciło się jak deska w zależności od pitch kamery.
         var camPos = _mainCam.transform.position;
         var toCam = camPos - transform.position;
         if (toCam.sqrMagnitude < 0.0001f)
             return;
 
-        var look = Quaternion.LookRotation(toCam, Vector3.up);
+        Quaternion look;
 
-        // dodatkowy roll żeby ustawić "poziomo" (w zależności jak jest narysowany sprite)
+        if (billboardYawOnly)
+        {
+            // tylko obrót w poziomie: usuń składową Y, żeby nie reagować na pitch
+            toCam.y = 0f;
+            if (toCam.sqrMagnitude < 0.0001f)
+                return;
+
+            look = Quaternion.LookRotation(toCam.normalized, Vector3.up);
+        }
+        else
+        {
+            // pełny billboard (pitch+yaw)
+            look = Quaternion.LookRotation(toCam, Vector3.up);
+        }
+
+        // roll - żeby tekstura była poziomo
         if (Mathf.Abs(rollDegrees) > 0.001f)
             look *= Quaternion.AngleAxis(rollDegrees, Vector3.forward);
 

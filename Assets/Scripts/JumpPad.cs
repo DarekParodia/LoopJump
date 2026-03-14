@@ -8,8 +8,7 @@ public class JumpPad : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         Debug.Log(other.name);
-        if (!other.CompareTag("Player")) return;
-        
+
         PlayerMovement pm = other.GetComponent<PlayerMovement>();
         if (pm == null) return;
 

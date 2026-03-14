@@ -124,11 +124,7 @@
             {
                 "type": "UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                 "key": "ShapeBuilder.LastSize.Cube",
-<<<<<<< HEAD
-                "value": "{\"m_Value\":{\"x\":-72.81021118164063,\"y\":1.3292999267578126,\"z\":47.30792999267578}}"
-=======
                 "value": "{\"m_Value\":{\"x\":9.845945358276368,\"y\":-0.546839714050293,\"z\":10.463874816894532}}"
->>>>>>> refs/remotes/origin/ttt
             },
             {
                 "type": "UnityEngine.Quaternion, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",

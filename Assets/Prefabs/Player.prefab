@@ -394,14 +394,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerThrowingLine
   switchToLine: {fileID: 5656408948043635659, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   handImage: {fileID: 0}
-<<<<<<< HEAD
-  frameTime: 0.1
-  tex1: {fileID: 2800000, guid: 885e2f18f748e46e5a69bd5f23c68064, type: 3}
-  tex2: {fileID: 2800000, guid: c723bee4b6ee24f3199893febd3322bd, type: 3}
-  tex3: {fileID: 2800000, guid: 3e65df59881ef4e7cbcfdf188062f03c, type: 3}
-  tex4: {fileID: 2800000, guid: 3d2f7f6b58dcb4be88a709a97ec107fc, type: 3}
-=======
->>>>>>> refs/remotes/origin/ttt
   gunImage: {fileID: 0}
   interfaceCanvas: {fileID: 0}
   frameTime: 0.1
@@ -415,7 +407,7 @@ MonoBehaviour:
   rateOfFire: 0.5
   lineSpeed: 30
   lineLifetime: 2
-  playerCamera: {fileID: 0}
+  playerCamera: {fileID: 3891230636257895539}
   linePitchDegrees: -10
 --- !u!1 &8320747583618150936
 GameObject:

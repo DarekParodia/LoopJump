@@ -19,15 +19,22 @@ public class PortalTeleporter : MonoBehaviour
 
     private float _lastDot;
 
+    private static bool IsPlayer(Collider other)
+    {
+        if (other == null) return false;
+        // Najprościej: nasz gracz ma CharacterController i/lub PlayerMovement
+        return other.GetComponent<CharacterController>() != null || other.GetComponent<PlayerMovement>() != null;
+    }
+
     void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player")) return;
+        if (!IsPlayer(other)) return;
         _lastDot = Vector3.Dot(transform.forward, other.transform.position - transform.position);
     }
 
     void OnTriggerStay(Collider other)
     {
-        if (!other.CompareTag("Player")) return;
+        if (!IsPlayer(other)) return;
         if (Time.time < _cooldownUntil) return;
         if (linkedPortal == null) { Debug.LogError($"[{gameObject.name}] linkedPortal not assigned!"); return; }
 

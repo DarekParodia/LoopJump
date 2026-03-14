@@ -48,13 +48,19 @@ public class PlayerShooting : MonoBehaviour
     public bool CanUseGun => canUseGun;
     public bool IsShootingNow { get; private set; }
 
+    private Canvas _uiCanvasWithGun;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         if (CanUseGun)
         {
             if (interfaceCanvas == null)
-                interfaceCanvas = FindFirstObjectByType<Canvas>();
+            {
+                // Zamiast FindFirstObjectByType<Canvas>() (który może zwrócić inny canvas z RawImage),
+                // wybierz canvas, który ma dziecko 'Gun'.
+                interfaceCanvas = FindCanvasWithChild("Gun");
+            }
 
             if (gunImage == null && interfaceCanvas != null)
             {
@@ -62,6 +68,9 @@ public class PlayerShooting : MonoBehaviour
                 if (gunTransform != null)
                     gunImage = gunTransform.GetComponent<Image>();
             }
+
+            // wymuś sortowanie na canvasie UI, żeby nie przykrywał go drugi canvas
+            EnsureCanvasOnTop(interfaceCanvas, sortingOrder: 10);
 
             gunLineRenderer = GetComponent<LineRenderer>();
             gunAudio = GetComponent<AudioSource>();
@@ -263,5 +272,27 @@ private IEnumerator GunShotAnimRoutine()
             reloadAction.action.Disable();
         }
     }
-}
 
+    private static Canvas FindCanvasWithChild(string childName)
+    {
+        var canvases = FindObjectsByType<Canvas>(FindObjectsSortMode.None);
+        foreach (var c in canvases)
+        {
+            if (c != null && c.transform.Find(childName) != null)
+                return c;
+        }
+
+        // fallback
+        return FindFirstObjectByType<Canvas>();
+    }
+
+    private static void EnsureCanvasOnTop(Canvas canvas, int sortingOrder)
+    {
+        if (canvas == null)
+            return;
+
+        // Działa zarówno dla Screen Space - Overlay jak i Camera/World.
+        canvas.overrideSorting = true;
+        canvas.sortingOrder = sortingOrder;
+    }
+}

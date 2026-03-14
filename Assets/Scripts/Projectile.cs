@@ -54,7 +54,7 @@ public class Projectile : MonoBehaviour
         }
         else
         {
-            /
+            
             if (targetRenderer == null)
                 targetRenderer = GetComponent<Renderer>();
             if (targetRenderer == null)

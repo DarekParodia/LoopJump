@@ -9,6 +9,9 @@ public class FacePlayer : MonoBehaviour
     public float angleOffset = 0f;
     public bool invertRotation = false;
 
+    [Header("Proximity")]
+    public float minDistance = 2f;
+
     private Transform player;
 
     void Start()
@@ -26,6 +29,8 @@ public class FacePlayer : MonoBehaviour
     void Update()
     {
         if (player == null) return;
+
+        if (Vector3.Distance(transform.position, player.position) < minDistance) return;
 
         Vector3 direction = invertRotation
             ? transform.position - player.position

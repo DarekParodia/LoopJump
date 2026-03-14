@@ -105,6 +105,20 @@ public class PlayerMovement : MonoBehaviour
             _verticalVelocity = initialFallVelocity;
         }
     }
+    
+    public void TransformVelocityThroughPortal(Matrix4x4 portalMatrix)
+    {
+        // Reconstruct the full 3D velocity
+        Vector3 fullVelocity = _currentVelocity;
+        fullVelocity.y = _verticalVelocity;
+
+        // Rotate it through the portal matrix (direction only, no translation)
+        Vector3 transformedVelocity = portalMatrix.MultiplyVector(fullVelocity);
+
+        // Split back into horizontal and vertical components
+        _currentVelocity = new Vector3(transformedVelocity.x, 0f, transformedVelocity.z);
+        _verticalVelocity = transformedVelocity.y;
+    }
 
     public void LaunchUp(float force)
     {

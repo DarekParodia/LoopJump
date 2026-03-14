@@ -117,21 +117,6 @@ public class PlayerShooting : MonoBehaviour
         }
     }
 
-    private void OnDisable()
-    {
-        if (attack != null && attack.action != null)
-        {
-            attack.action.performed -= ShootWithCoroutine;
-            attack.action.Disable();
-        }
-
-        if (reloadAction != null && reloadAction.action != null)
-        {
-            reloadAction.action.performed -= OnReload;
-            reloadAction.action.Disable();
-        }
-    }
-
     private void OnReload(InputAction.CallbackContext ctx)
     {
         if (PlayerAmmo.Instance != null)
@@ -225,37 +210,31 @@ public class PlayerShooting : MonoBehaviour
         _gunAnimCoroutine = StartCoroutine(GunShotAnimRoutine());
     }
 
-    private IEnumerator GunShotAnimRoutine()
+private IEnumerator GunShotAnimRoutine()
+{
+    IsShootingNow = true;
+
+    try
     {
-        IsShootingNow = true;
-
-        try
+        if (gunShotFrameTime <= 0f)
         {
-            if (gunShotFrameTime <= 0f)
-            {
-                SetGunSprite(_spr4 != null ? _spr4 : _spr1);
-                EndShootGunImage();
-                yield break;
-            }
-
-            // tex2 -> tex3 -> tex4 -> tex1
-            if (_spr2 != null) { SetGunSprite(_spr2); yield return new WaitForSeconds(gunShotFrameTime); }
-            if (_spr3 != null) { SetGunSprite(_spr3); yield return new WaitForSeconds(gunShotFrameTime); }
-            if (_spr4 != null) { SetGunSprite(_spr4); yield return new WaitForSeconds(gunShotFrameTime); }
-
+            SetGunSprite(_spr4 != null ? _spr4 : _spr1);
             EndShootGunImage();
+            yield break;
         }
 
+        // tex2 -> tex3 -> tex4 -> tex1
         if (_spr2 != null) { SetGunSprite(_spr2); yield return new WaitForSeconds(gunShotFrameTime); }
         if (_spr3 != null) { SetGunSprite(_spr3); yield return new WaitForSeconds(gunShotFrameTime); }
         if (_spr4 != null) { SetGunSprite(_spr4); yield return new WaitForSeconds(gunShotFrameTime); }
 
         EndShootGunImage();
-        finally
-        {
-            IsShootingNow = false;
-        }
     }
+    finally
+    {
+        IsShootingNow = false;
+    }
+}
 
     private void SetGunSprite(Sprite s)
     {
@@ -272,11 +251,17 @@ public class PlayerShooting : MonoBehaviour
 
     private void OnDisable()
     {
-        if (attack == null || attack.action == null)
-            return;
+        if (attack != null && attack.action != null)
+        {
+            attack.action.performed -= ShootWithCoroutine;
+            attack.action.Disable();
+        }
 
-        attack.action.performed -= ShootWithCoroutine;
-        attack.action.Disable();
+        if (reloadAction != null && reloadAction.action != null)
+        {
+            reloadAction.action.performed -= OnReload;
+            reloadAction.action.Disable();
+        }
     }
 }
 

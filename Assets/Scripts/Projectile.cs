@@ -13,10 +13,9 @@ public class Projectile : MonoBehaviour
     [SerializeField] private Texture2D tex2;
     [SerializeField, Min(0f)] private float animationFps = 12f;
 
-    [Tooltip("Jeśli projectile jest 2D spritem, przypisz SpriteRenderer (albo zostaw puste – skrypt spróbuje znaleźć).")]
+    
     [SerializeField] private SpriteRenderer targetSpriteRenderer;
-
-    [Tooltip("Jeśli projectile jest 3D (MeshRenderer/SkinnedMeshRenderer), przypisz Renderer (albo zostaw puste – skrypt spróbuje znaleźć).")]
+   
     [SerializeField] private Renderer targetRenderer;
 
     private float _age;

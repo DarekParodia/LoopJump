@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "name": "LineGowno",
+    "maps": [
+        {
+            "name": "p",
+            "id": "bc4f4ced-d1ee-4685-bb02-a647f55c1425",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "a56675d0-4b7f-4bbf-9067-5bb9f0b0c3fe",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "aeb15846-b76b-480c-9718-b09be9843d7b",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

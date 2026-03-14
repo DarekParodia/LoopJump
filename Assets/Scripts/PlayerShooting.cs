@@ -21,7 +21,7 @@ public class PlayerShooting : MonoBehaviour
     public float timeBetweenShots = 0.8f;
     public float range = 50f;
     public bool CanShoot = true;
-    [SerializeField]public AudioClip gunProjectileSound;
+    [SerializeField] public AudioClip gunProjectileSound;
     private AudioSource gunAudio;
     public LineRenderer gunLineRenderer;
     [SerializeField] private Texture2D tex1;
@@ -46,45 +46,56 @@ public class PlayerShooting : MonoBehaviour
     [Header("References")]
     public CinemachineCamera playerCamera;
 
+    [Header("Weapon State")]
+    [Tooltip("Jeśli true, gracz ma aktualnie wyposażony gun. Gdy gun jest equipped, inne akcje (np. lina) mogą być blokowane.")]
+    [SerializeField] private bool canUseGun = true;
+
+    public bool CanUseGun => canUseGun;
+    public bool IsShootingNow { get; private set; }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (interfaceCanvas == null)
-            interfaceCanvas = FindFirstObjectByType<Canvas>();
-
-        if (gunImage == null && interfaceCanvas != null)
+        if (CanUseGun)
         {
-            var gunTransform = interfaceCanvas.transform.Find("Gun");
-            if (gunTransform != null)
-                gunImage = gunTransform.GetComponent<Image>();
-        }
+            if (interfaceCanvas == null)
+                interfaceCanvas = FindFirstObjectByType<Canvas>();
 
-        gunLineRenderer = GetComponent<LineRenderer>();
-        gunAudio = GetComponent<AudioSource>();
+            if (gunImage == null && interfaceCanvas != null)
+            {
+                var gunTransform = interfaceCanvas.transform.Find("Gun");
+                if (gunTransform != null)
+                    gunImage = gunTransform.GetComponent<Image>();
+            }
 
-        // cache sprite'ów (UI Image potrzebuje Sprite, nie Texture2D)
-        _spr1 = CreateSprite(tex1);
-        _spr2 = CreateSprite(tex2);
-        _spr3 = CreateSprite(tex3);
-        _spr4 = CreateSprite(tex4);
+            gunLineRenderer = GetComponent<LineRenderer>();
+            gunAudio = GetComponent<AudioSource>();
+        
+            _spr1 = CreateSprite(tex1);
+            _spr2 = CreateSprite(tex2);
+            _spr3 = CreateSprite(tex3);
+            _spr4 = CreateSprite(tex4);
 
-        // start/idle
-        SetGunSprite(_spr1);
+            // start/idle
+            SetGunSprite(_spr1);
 
-        if (playerCamera == null)
-        {
-            playerCamera = GetComponent<CinemachineCamera>();
             if (playerCamera == null)
-                playerCamera = GetComponentInParent<CinemachineCamera>();
-            if (playerCamera == null)
-                playerCamera = GetComponentInChildren<CinemachineCamera>(true);
-        }
+            {
+                playerCamera = GetComponent<CinemachineCamera>();
+                if (playerCamera == null)
+                    playerCamera = GetComponentInParent<CinemachineCamera>();
+                if (playerCamera == null)
+                    playerCamera = GetComponentInChildren<CinemachineCamera>(true);
+            }
 
-        if (gunLineRenderer != null)
-        {
-            gunLineRenderer.enabled = true;
-            gunLineRenderer.positionCount = 2;
+            if (gunLineRenderer != null)
+            {
+                gunLineRenderer.enabled = true;
+                gunLineRenderer.positionCount = 2;
+            }
+            
         }
+       
     }
 
     private void OnEnable()
@@ -189,7 +200,6 @@ public class PlayerShooting : MonoBehaviour
         if (gunImage == null)
             return;
 
-        // blokuj strzał + kolor jako feedback (opcjonalnie)
         StarthootGunImage();
 
         if (_gunAnimCoroutine != null)
@@ -200,19 +210,28 @@ public class PlayerShooting : MonoBehaviour
 
     private IEnumerator GunShotAnimRoutine()
     {
-        if (gunShotFrameTime <= 0f)
+        IsShootingNow = true;
+
+        try
         {
-            SetGunSprite(_spr4 != null ? _spr4 : _spr1);
+            if (gunShotFrameTime <= 0f)
+            {
+                SetGunSprite(_spr4 != null ? _spr4 : _spr1);
+                EndShootGunImage();
+                yield break;
+            }
+
+            // tex2 -> tex3 -> tex4 -> tex1
+            if (_spr2 != null) { SetGunSprite(_spr2); yield return new WaitForSeconds(gunShotFrameTime); }
+            if (_spr3 != null) { SetGunSprite(_spr3); yield return new WaitForSeconds(gunShotFrameTime); }
+            if (_spr4 != null) { SetGunSprite(_spr4); yield return new WaitForSeconds(gunShotFrameTime); }
+
             EndShootGunImage();
-            yield break;
         }
-
-        // tex2 -> tex3 -> tex4 -> tex1
-        if (_spr2 != null) { SetGunSprite(_spr2); yield return new WaitForSeconds(gunShotFrameTime); }
-        if (_spr3 != null) { SetGunSprite(_spr3); yield return new WaitForSeconds(gunShotFrameTime); }
-        if (_spr4 != null) { SetGunSprite(_spr4); yield return new WaitForSeconds(gunShotFrameTime); }
-
-        EndShootGunImage();
+        finally
+        {
+            IsShootingNow = false;
+        }
     }
 
     private void SetGunSprite(Sprite s)
@@ -220,7 +239,7 @@ public class PlayerShooting : MonoBehaviour
         if (gunImage == null)
             return;
 
-        // ważne: UI Image ma tint przez 'color' – zostawiamy białe, żeby nie barwiło tekstur.
+        // UI Image ma tint przez 'color' – zostawiamy białe, żeby nie barwiło tekstur.
         gunImage.color = Color.white;
 
         if (s != null)
@@ -245,3 +264,4 @@ public class PlayerShooting : MonoBehaviour
         attack.action.Disable();
     }
 }
+

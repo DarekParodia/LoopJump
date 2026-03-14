@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -1958162498425634967}
   - component: {fileID: 6775739574875489341}
   - component: {fileID: 3097612692563619870}
+  - component: {fileID: -1953594134393393780}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -118,6 +119,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 5037916973141201973, guid: 38c9be2df287e41cd9334d9219abd08d, type: 3}
   projectileSpawnPoint: {fileID: 0}
   playerCamera: {fileID: 3891230636257895539}
+  canUseGun: 1
 --- !u!120 &-8389424533817631785
 LineRenderer:
   serializedVersion: 3
@@ -361,12 +363,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   maxHealth: 100
-  onDamageTaken:
-    m_PersistentCalls:
-      m_Calls: []
-  onDeath:
-    m_PersistentCalls:
-      m_Calls: []
+  currentHealth: 0
+--- !u!114 &-1953594134393393780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7295354093685116555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5554cd1d89a184d578a95661476b55e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerThrowingLine
+  switchToLine: {fileID: 5656408948043635659, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  handImage: {fileID: 0}
+  frameTime: 0.06
+  tex1: {fileID: 2800000, guid: dffef66376be4fa480fb02b19edbe903, type: 3}
+  tex2: {fileID: 2800000, guid: a0fc465d6cf04254a2938578735e2383, type: 3}
+  tex3: {fileID: 2800000, guid: 9a16690aa886986bca847f9ec2954a94, type: 3}
+  tex4: {fileID: 2800000, guid: 9a16690aa886986bca847f9ec2954a94, type: 3}
+  interfaceCanvas: {fileID: 0}
+  lineThrowingSound: {fileID: 0}
 --- !u!1 &8320747583618150936
 GameObject:
   m_ObjectHideFlags: 0

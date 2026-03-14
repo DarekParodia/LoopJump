@@ -2166,7 +2166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   musicTracks:
   - {fileID: 8300000, guid: b56854043c513df4eb7104f3fedcd31e, type: 3}
-  musicVolume: 0.5
+  musicVolume: 0.9
   crossfadeDuration: 1.5
 --- !u!4 &1974651449
 Transform:

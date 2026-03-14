@@ -61,6 +61,12 @@ MonoBehaviour:
   jumpForce: 12
   gravity: -18
   initialFallVelocity: -4
+  movementAudioSource: {fileID: 0}
+  movementSoundVolume: 0.077
+  movementSoundInterval: 0.27
+  movementSounds:
+  - {fileID: 8300000, guid: 700810e5bb7306302a05ce678bddb204, type: 3}
+  - {fileID: 8300000, guid: 20c6872191c57a01fa17cd4011aa40a1, type: 3}
   cameraTransform: {fileID: 6218551618834749736}
   moveAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   jumpAction: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
@@ -571,14 +577,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8915425064557815886}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.19780466, y: -0.54267657, z: -0.13328636, w: 0.8053634}
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: -0.00000004371139}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8939826734310807561}
   m_Father: {fileID: 8218253570121704286}
-  m_LocalEulerAnglesHint: {x: -28.987, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -24.208, y: 0, z: 0}
 --- !u!114 &3891230636257895539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -637,7 +643,7 @@ MonoBehaviour:
   ReferenceFrame: 0
   RecenterTarget: 0
   PanAxis:
-    Value: -67.9464
+    Value: -180
     Center: 0
     Range: {x: -180, y: 180}
     Wrap: 1
@@ -647,7 +653,7 @@ MonoBehaviour:
       Time: 2
     Restrictions: 0
   TiltAxis:
-    Value: -27.598448
+    Value: 0
     Center: 0
     Range: {x: -70, y: 70}
     Wrap: 0

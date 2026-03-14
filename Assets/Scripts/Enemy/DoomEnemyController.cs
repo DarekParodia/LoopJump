@@ -255,13 +255,17 @@ public class DoomEnemyController : MonoBehaviour
                 break;
 
             case EnemyState.Dead:
-                agent.isStopped = true;
-                agent.enabled = false;
-                GetComponent<Collider>()?.gameObject.SetActive(false);
-                animator.SetState(DoomSpriteAnimator.AnimState.Death);
-                Debug.Log($"[DoomEnemy] Wróg zginął! Usuwanie obiektu za 3 sekundy.");
-                Destroy(gameObject, .25f); // usuń po 3 sekundach
-                break;
+    agent.isStopped = true;
+    agent.enabled = false;
+    GetComponent<Collider>()?.gameObject.SetActive(false);
+    animator.SetState(DoomSpriteAnimator.AnimState.Death);
+
+    // ← ADD THIS: report death to spawner so wave completion is tracked
+    FindObjectOfType<EnemySpawner>()?.EnemyDefeated(gameObject);
+
+    Debug.Log($"[DoomEnemy] Wróg zginął! Usuwanie obiektu za 3 sekundy.");
+    Destroy(gameObject, .25f);
+    break;
         }
     }
 

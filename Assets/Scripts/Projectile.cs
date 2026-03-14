@@ -27,41 +27,77 @@ public class Projectile : MonoBehaviour
     private float _animTimer;
     private int _frameIndex;
 
-    // sprite cache (dla UI/2D)
+
     private Sprite _spr1;
     private Sprite _spr2;
 
     private static readonly int BaseMapId = Shader.PropertyToID("_BaseMap");
     private static readonly int MainTexId = Shader.PropertyToID("_MainTex");
 
+    private static Material _cachedSpriteMaterial;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
 
-        // 2D sprite path
+      
         if (targetSpriteRenderer == null)
             targetSpriteRenderer = GetComponent<SpriteRenderer>();
         if (targetSpriteRenderer == null)
             targetSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
-        // 3D renderer path
-        if (targetRenderer == null)
-            targetRenderer = GetComponent<Renderer>();
-        if (targetRenderer == null)
-            targetRenderer = GetComponentInChildren<Renderer>();
-
-        // przygotuj cache sprite'ów (tworzone raz)
-        _spr1 = CreateSprite(tex1);
-        _spr2 = CreateSprite(tex2);
-
-        // przygotuj mpb tylko jeśli faktycznie używamy renderera 3D
-        if (targetSpriteRenderer == null)
+        if (targetSpriteRenderer != null)
         {
+    
+            EnsureSpriteMaterial(targetSpriteRenderer);
+            targetRenderer = null;
+        }
+        else
+        {
+            /
+            if (targetRenderer == null)
+                targetRenderer = GetComponent<Renderer>();
+            if (targetRenderer == null)
+                targetRenderer = GetComponentInChildren<Renderer>();
+
             _mpb = new MaterialPropertyBlock();
             _texPropertyId = ResolveTexturePropertyId(targetRenderer);
         }
 
+      
+        _spr1 = CreateSprite(tex1);
+        _spr2 = CreateSprite(tex2);
+
         ApplyFrameTexture();
+    }
+
+    private static void EnsureSpriteMaterial(SpriteRenderer sr)
+    {
+        if (sr == null)
+            return;
+
+        
+        var mat = sr.sharedMaterial;
+        if (mat != null && mat.shader != null)
+            return;
+
+        if (_cachedSpriteMaterial == null)
+        {
+           
+            var urp2d = Shader.Find("Universal Render Pipeline/2D/Sprite-Unlit-Default");
+            if (urp2d != null)
+                _cachedSpriteMaterial = new Material(urp2d);
+            else
+            {
+               
+                var builtin = Shader.Find("Sprites/Default");
+                if (builtin != null)
+                    _cachedSpriteMaterial = new Material(builtin);
+            }
+        }
+
+        if (_cachedSpriteMaterial != null)
+            sr.sharedMaterial = _cachedSpriteMaterial;
     }
 
     private void OnEnable()

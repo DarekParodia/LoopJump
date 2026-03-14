@@ -111,6 +111,7 @@ MonoBehaviour:
   tex3: {fileID: 2800000, guid: 892ec2a5f6c1c17a8809ff4f2cad9ff9, type: 3}
   tex4: {fileID: 2800000, guid: 783dcf2a3dc5445e3ade13ded451f4cb, type: 3}
   gunShotFrameTime: 0.06
+  tintGunOnShot: 0
   projectilePrefab: {fileID: 5037916973141201973, guid: 38c9be2df287e41cd9334d9219abd08d, type: 3}
   projectileSpawnPoint: {fileID: 0}
   playerCamera: {fileID: 3891230636257895539}
@@ -173,8 +174,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.40748215
-        value: 0.89743614
+        time: 0
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 0

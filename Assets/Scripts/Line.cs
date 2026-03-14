@@ -18,6 +18,15 @@ public class Line : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool debugLogs = false;
 
+    [Header("Orientation")]
+    [Tooltip("Jeśli włączone, lina będzie billboardem do kamery (zawsze czytelna) i ustawiona poziomo.")]
+    [SerializeField] private bool alignToCamera = true;
+
+    [Tooltip("Dodatkowy obrót wokół osi 'forward' kamery (roll) w stopniach. Często 90 lub 0, zależnie jak jest narysowana tekstura.")]
+    [SerializeField] private float rollDegrees = 0f;
+
+    private Camera _mainCam;
+
     private float _age;
 
     private static Material _cachedSpriteMaterial;
@@ -33,7 +42,7 @@ public class Line : MonoBehaviour
 
         EnsureSpriteMaterial(targetSpriteRenderer);
 
-        // widoczność
+
         targetSpriteRenderer.sortingOrder = 500;
 
         if (tex1 == null)
@@ -47,12 +56,16 @@ public class Line : MonoBehaviour
                 targetSpriteRenderer.sprite = spr;
         }
 
-        // mały rozmiar domyślny, żeby nie był gigantyczny
+
         if (transform.localScale == Vector3.one)
             transform.localScale = Vector3.one * 0.25f;
 
         var col = GetComponent<Collider>();
         col.isTrigger = true;
+
+        _mainCam = Camera.main;
+        if (_mainCam == null)
+            _mainCam = FindFirstObjectByType<Camera>();
     }
 
     private void OnEnable()
@@ -70,7 +83,7 @@ public class Line : MonoBehaviour
 
         _age = 0f;
 
-        // upewnij się, że sprite istnieje
+
         if (targetSpriteRenderer != null && targetSpriteRenderer.sprite == null && tex1 != null)
         {
             var spr = CreateSprite(tex1);
@@ -84,7 +97,7 @@ public class Line : MonoBehaviour
         _rb.isKinematic = false;
         _rb.WakeUp();
 
-        // Stabilniej niż AddForce: stała prędkość jak projectile
+
         _rb.linearVelocity = direction * speed;
 
         if (debugLogs)
@@ -100,9 +113,29 @@ public class Line : MonoBehaviour
             return;
         }
 
-        var v = _rb.linearVelocity;
-        if (v.sqrMagnitude > 0.0001f)
-            _rb.transform.rotation = Quaternion.LookRotation(v);
+        if (alignToCamera)
+            AlignSpriteToCamera();
+    }
+
+    private void AlignSpriteToCamera()
+    {
+        if (_mainCam == null)
+            return;
+
+        // Billboard: sprite patrzy na kamerę.
+        // 'up' ustawiamy na Vector3.up, żeby nie kręciło się jak deska w zależności od pitch kamery.
+        var camPos = _mainCam.transform.position;
+        var toCam = camPos - transform.position;
+        if (toCam.sqrMagnitude < 0.0001f)
+            return;
+
+        var look = Quaternion.LookRotation(toCam, Vector3.up);
+
+        // dodatkowy roll żeby ustawić "poziomo" (w zależności jak jest narysowany sprite)
+        if (Mathf.Abs(rollDegrees) > 0.001f)
+            look *= Quaternion.AngleAxis(rollDegrees, Vector3.forward);
+
+        transform.rotation = look;
     }
 
     private void OnTriggerEnter(Collider other)

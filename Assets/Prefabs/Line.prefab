@@ -28,13 +28,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4136451718919971984}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &-4249557645613446161
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -74,11 +74,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9c4ec0c837874b6582716b9e8d9b9b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Line
-  speed: 200
-  lifetime: 10
+  speed: 400
+  lifetime: 3
   tex1: {fileID: 2800000, guid: 13d90396ecbfe2ba1a3e9e6b8a7da92a, type: 3}
   targetSpriteRenderer: {fileID: 903031706868916003}
   debugLogs: 0
+  alignToCamera: 0
+  rollDegrees: 180
 --- !u!212 &903031706868916003
 SpriteRenderer:
   serializedVersion: 2

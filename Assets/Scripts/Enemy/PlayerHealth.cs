@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerHealth : MonoBehaviour
 {
     public static PlayerHealth Instance { get; private set; }
@@ -26,7 +26,10 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth <= 0f)
         {
             Debug.Log("[PlayerHealth] Dead!");
-            Destroy(gameObject);
+            Debug.Log("zdechłeś");
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            SceneManager.LoadScene("GameOver");
         }
     }
 

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using UnityEngine.SceneManagement;
 public class LetTheLoopAgain : MonoBehaviour
 {
@@ -11,4 +12,17 @@ public class LetTheLoopAgain : MonoBehaviour
    {
       Application.Quit();
    }
+   
+   void Start()
+   {
+      StartCoroutine(Loadscene());
+   }
+
+   IEnumerator Loadscene()
+   {
+      yield return new WaitForSeconds(3f);
+      SceneManager.LoadScene("Game");
+   }
+   
 }
+

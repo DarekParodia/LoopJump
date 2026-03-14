@@ -107,7 +107,7 @@ MonoBehaviour:
   interfaceCanvas: {fileID: 0}
   gunImage: {fileID: 0}
   damagePerShot: 20
-  timeBetweenShots: 0.8
+  timeBetweenShots: 0.45
   range: 20
   CanShoot: 1
   gunProjectileSound: {fileID: 8300000, guid: c3abe1647ac6b4de493c6e634bd3087c, type: 3}
@@ -404,6 +404,7 @@ MonoBehaviour:
   lineThrowingSound: {fileID: 0}
   linePrefab: {fileID: 1841715514168521232, guid: c34c534125e7c4662bf1e7ca86625dd1, type: 3}
   lineSpawnPoint: {fileID: 0}
+  lineOriginLocalOffset: {x: 0, y: -0.4, z: 0}
   rateOfFire: 0.5
   lineSpeed: 30
   lineLifetime: 2
@@ -455,8 +456,8 @@ Light:
   serializedVersion: 12
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 53.68
-  m_Range: 199
+  m_Intensity: 36.2
+  m_Range: 264.7
   m_SpotAngle: 81.6186
   m_InnerSpotAngle: 57.60208
   m_CookieSize2D: {x: 0.5, y: 0.5}

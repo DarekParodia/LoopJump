@@ -788,6 +788,7 @@ Transform:
   - {fileID: 6576035207509687214}
   - {fileID: 8351418184772560705}
   - {fileID: 3662266296685842244}
+  - {fileID: 2887781721785438344}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4797802219730030339
@@ -1172,7 +1173,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5643163507784046755}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 4.73}
+  m_LocalPosition: {x: 0, y: 0, z: 3.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1252,9 +1253,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Polecamy uzycie petli pod przyciskiem Q
-
-    aby zlapac przeciwnikow!'
+  m_text: "Aby utrzymac sie przy zyciu \nnalezy wchodzic na healpady\noznaczone czerwonym
+    plusem"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 241c6acceca8b844baad6cbcf60cefc7, type: 2}
   m_sharedMaterial: {fileID: -699112959996641730, guid: 241c6acceca8b844baad6cbcf60cefc7, type: 2}
@@ -4679,6 +4679,68 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6918454688669404481, guid: 32afcf82c90d84d00b5f613eaa01a3ae, type: 3}
   m_PrefabInstance: {fileID: 3021743724140953013}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3408644516319050154
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5325532644079935504}
+    m_Modifications:
+    - target: {fileID: 531009199608736034, guid: 10871139ae37614aa8d5274a49c6c762, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 531009199608736034, guid: 10871139ae37614aa8d5274a49c6c762, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 531009199608736034, guid: 10871139ae37614aa8d5274a49c6c762, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -58.83
+      objectReference: {fileID: 0}
+    - target: {fileID: 531009199608736034, guid: 10871139ae37614aa8d5274a49c6c762, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 531009199608736034, guid: 10871139ae37614aa8d5274a49c6c762, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 531009199608736034, guid: 10871139ae37614aa8d5274a49c6c762, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 531009199608736034, guid: 10871139ae37614aa8d5274a49c6c762, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 531009199608736034, guid: 10871139ae37614aa8d5274a49c6c762, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 531009199608736034, guid: 10871139ae37614aa8d5274a49c6c762, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 531009199608736034, guid: 10871139ae37614aa8d5274a49c6c762, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967999055839703701, guid: 10871139ae37614aa8d5274a49c6c762, type: 3}
+      propertyPath: m_Name
+      value: HealPad
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 10871139ae37614aa8d5274a49c6c762, type: 3}
+--- !u!4 &2887781721785438344 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 531009199608736034, guid: 10871139ae37614aa8d5274a49c6c762, type: 3}
+  m_PrefabInstance: {fileID: 3408644516319050154}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4511585495482316980
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4696,7 +4758,9 @@ PrefabInstance:
       value: 'Celem gracza jest przedostanie
 
         sie przez koryatrz bez utraty
-        zycia'
+        zycia
+
+        dodatkowo wiecej killi to tez wiecej punktow'
       objectReference: {fileID: 0}
     - target: {fileID: 6918454688669404481, guid: 32afcf82c90d84d00b5f613eaa01a3ae, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4834,7 +4898,18 @@ PrefabInstance:
 
         nacisnij lewy przycisk myszy
 
-        (LMB)'
+        (LMB)
+
+        Przeladuj
+        Naciskajac R'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3771383859384416064, guid: 32afcf82c90d84d00b5f613eaa01a3ae, type: 3}
+      propertyPath: m_fontSize
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3771383859384416064, guid: 32afcf82c90d84d00b5f613eaa01a3ae, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6918454688669404481, guid: 32afcf82c90d84d00b5f613eaa01a3ae, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4962,7 +5037,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3771383859384416064, guid: 32afcf82c90d84d00b5f613eaa01a3ae, type: 3}
       propertyPath: m_text
-      value: 'Gracz ma do dyspozycji JumpPady!
+      value: 'Aby wybic sie wysoko w gore
+
+        mozna uzyc JumpPadow!
 
 '
       objectReference: {fileID: 0}

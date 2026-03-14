@@ -395,12 +395,15 @@ MonoBehaviour:
   switchToLine: {fileID: 5656408948043635659, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   handImage: {fileID: 0}
   frameTime: 0.1
-  tex1: {fileID: 2800000, guid: 885e2f18f748e46e5a69bd5f23c68064, type: 3}
-  tex2: {fileID: 2800000, guid: c723bee4b6ee24f3199893febd3322bd, type: 3}
-  tex3: {fileID: 2800000, guid: 3e65df59881ef4e7cbcfdf188062f03c, type: 3}
-  tex4: {fileID: 2800000, guid: 3d2f7f6b58dcb4be88a709a97ec107fc, type: 3}
+  tex1: {fileID: 2800000, guid: f011270f0104997b999007c83a27f501, type: 3}
+  tex2: {fileID: 2800000, guid: ec3e5c07604b12d0abe471101dee63ae, type: 3}
+  tex3: {fileID: 2800000, guid: acbb2b5bef8a335bcb64eee069163f35, type: 3}
+  tex4: {fileID: 2800000, guid: 9ccefb3781ec3eb5ebab6472190917fe, type: 3}
+  gunImage: {fileID: 0}
+  linePrefab: {fileID: -3524488641489295580, guid: c34c534125e7c4662bf1e7ca86625dd1, type: 3}
   interfaceCanvas: {fileID: 0}
   lineThrowingSound: {fileID: 0}
+  playerCamera: {fileID: 0}
 --- !u!1 &8320747583618150936
 GameObject:
   m_ObjectHideFlags: 0

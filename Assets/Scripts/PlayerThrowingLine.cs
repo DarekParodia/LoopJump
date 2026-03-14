@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -12,7 +13,13 @@ public class PlayerThrowingLine : MonoBehaviour
 
     private PlayerShooting _playerShootingScript;
 
+    [Header("UI")]
     [SerializeField] private Image handImage;
+
+    [Tooltip("Opcjonalnie: przypnij UI Image broni. Jeśli puste, skrypt spróbuje znaleźć child 'Gun' w Canvasie.")]
+    [SerializeField] private Image gunImage;
+
+    [SerializeField] public Canvas interfaceCanvas;
 
     [Header("Line Throw Animation")]
     [Tooltip("Czas na każdą klatkę rzutu (tex2->tex3->tex4).")]
@@ -23,16 +30,28 @@ public class PlayerThrowingLine : MonoBehaviour
     [SerializeField] private Texture2D tex3;
     [SerializeField] private Texture2D tex4;
 
-    [Header("UI")]
-    [Tooltip("Opcjonalnie: przypnij UI Image broni. Jeśli puste, skrypt spróbuje znaleźć child 'Gun' w Canvasie.")]
-    [SerializeField] private Image gunImage;
-
-    [SerializeField] public Canvas interfaceCanvas;
     [SerializeField] public AudioClip lineThrowingSound;
     private AudioSource _throwAudio;
 
+    [Header("Line Projectile")]
+    [SerializeField] private Line linePrefab;
+    
+    [SerializeField] private Transform lineSpawnPoint;
+
+    [SerializeField, Min(0f)] private float rateOfFire = 0.5f;
+
+    [SerializeField] private float lineSpeed = 30f;
+    [SerializeField] private float lineLifetime = 2f;
+
+    [Header("Direction")]
+    [SerializeField] private CinemachineCamera playerCamera;
+    
+    [SerializeField] private float linePitchDegrees = -10f;
+
     private Coroutine _animCoroutine;
     private Sprite _spr1, _spr2, _spr3, _spr4;
+
+    private float _nextAllowedTime;
 
     private void Start()
     {
@@ -62,12 +81,14 @@ public class PlayerThrowingLine : MonoBehaviour
         _spr3 = CreateSprite(tex3);
         _spr4 = CreateSprite(tex4);
 
-        // start: nie pokazuj dłoni jeśli nie chcesz
         if (handImage != null)
         {
             handImage.enabled = false;
             handImage.color = Color.white;
         }
+
+        if (playerCamera == null)
+            playerCamera = GetComponentInChildren<CinemachineCamera>(true);
     }
 
     private void OnEnable()
@@ -93,11 +114,53 @@ public class PlayerThrowingLine : MonoBehaviour
 
     private void OnLineKey(InputAction.CallbackContext _)
     {
-        // jeśli akurat strzelasz z guna, nie przerywaj
+       
         if (_playerShootingScript != null && _playerShootingScript.CanUseGun && _playerShootingScript.IsShootingNow)
             return;
 
-        PlayLineThrowAnimation();
+        if (Time.time < _nextAllowedTime)
+            return;
+
+        _nextAllowedTime = Time.time + rateOfFire;
+
+        Debug.Log("[PlayerThrowingLine] Q pressed -> spawn Line");
+        SpawnLineProjectile();
+
+     
+        if (handImage != null && tex1 != null)
+        {
+            PlayLineThrowAnimation();
+        }
+    }
+
+    private void SpawnLineProjectile()
+    {
+        if (linePrefab == null)
+        {
+            Debug.LogWarning("PlayerThrowingLine: linePrefab is null. Przypnij Assets/Prefabs/Line.prefab w Inspectorze.");
+            return;
+        }
+
+        var spawnT = lineSpawnPoint != null ? lineSpawnPoint : transform;
+
+        Vector3 dir = spawnT.forward;
+        if (playerCamera != null)
+            dir = playerCamera.transform.forward;
+
+        // obróć lekko w pionie (pitch) względem osi kamery/gracza
+        if (Mathf.Abs(linePitchDegrees) > 0.001f)
+        {
+            var axis = playerCamera != null ? playerCamera.transform.right : spawnT.right;
+            dir = Quaternion.AngleAxis(linePitchDegrees, axis) * dir;
+        }
+
+        var pos = spawnT.position;
+        if (playerCamera != null)
+            pos = playerCamera.transform.position + dir.normalized * 0.6f;
+
+        var rot = Quaternion.LookRotation(dir.normalized);
+        var line = Instantiate(linePrefab, pos, rot);
+        line.Launch(dir, lineSpeed, lineLifetime);
     }
 
     private void PlayLineThrowAnimation()
@@ -113,18 +176,15 @@ public class PlayerThrowingLine : MonoBehaviour
 
     private IEnumerator LineThrowAnimRoutine()
     {
-        // schowaj gun na czas rzutu liny
         if (gunImage != null)
             gunImage.enabled = false;
 
-        // pokaż rękę/linię
         handImage.enabled = true;
         SetHandSprite(_spr1);
 
         if (_throwAudio != null && lineThrowingSound != null)
             _throwAudio.PlayOneShot(lineThrowingSound);
 
-        // krótka animacja: 1 -> 2 -> 3 -> 4 -> 1
         if (frameTime > 0f)
         {
             if (_spr2 != null) { SetHandSprite(_spr2); yield return new WaitForSeconds(frameTime); }
@@ -134,9 +194,6 @@ public class PlayerThrowingLine : MonoBehaviour
 
         SetHandSprite(_spr1);
 
-        // tutaj później podepniesz prawdziwą logikę "rzutu liny"
-
-        // schowaj i wróć do guna
         handImage.enabled = false;
         if (gunImage != null)
             gunImage.enabled = true;

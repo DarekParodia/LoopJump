@@ -1688,13 +1688,9 @@ Transform:
   - {fileID: 1180904336036161096}
   - {fileID: 295489517208503384}
   - {fileID: 9093040366498186982}
-<<<<<<< HEAD
-  - {fileID: 8476177140504468736}
-=======
   - {fileID: 8731668368693683397}
   - {fileID: 7343674469474950795}
   - {fileID: 868259803644151062}
->>>>>>> refs/remotes/origin/healthbarworking
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2139259471665913782
@@ -1883,7 +1879,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7169965004452583760, guid: 1748ef2168d18a42a9a0f489e6b1554b, type: 3}
   m_PrefabInstance: {fileID: 3550440127589349630}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
 --- !u!1001 &4282876165785243905
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1945,73 +1940,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 5678681913516346369, guid: 708ec124d03be68b682525494896582d, type: 3}
   m_PrefabInstance: {fileID: 4282876165785243905}
-=======
---- !u!1001 &3787000645230581199
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 5923097359850441123}
-    m_Modifications:
-    - target: {fileID: 2317880408342348434, guid: a0face25404f9a14f983b17c59a60e3a, type: 3}
-      propertyPath: attackRange
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 4071971723452420313, guid: a0face25404f9a14f983b17c59a60e3a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 14.47075
-      objectReference: {fileID: 0}
-    - target: {fileID: 4071971723452420313, guid: a0face25404f9a14f983b17c59a60e3a, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.63
-      objectReference: {fileID: 0}
-    - target: {fileID: 4071971723452420313, guid: a0face25404f9a14f983b17c59a60e3a, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 39.226654
-      objectReference: {fileID: 0}
-    - target: {fileID: 4071971723452420313, guid: a0face25404f9a14f983b17c59a60e3a, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4071971723452420313, guid: a0face25404f9a14f983b17c59a60e3a, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4071971723452420313, guid: a0face25404f9a14f983b17c59a60e3a, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4071971723452420313, guid: a0face25404f9a14f983b17c59a60e3a, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4071971723452420313, guid: a0face25404f9a14f983b17c59a60e3a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4071971723452420313, guid: a0face25404f9a14f983b17c59a60e3a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4071971723452420313, guid: a0face25404f9a14f983b17c59a60e3a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6706938831306399701, guid: a0face25404f9a14f983b17c59a60e3a, type: 3}
-      propertyPath: m_Name
-      value: PewPewEnemy
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a0face25404f9a14f983b17c59a60e3a, type: 3}
---- !u!4 &868259803644151062 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4071971723452420313, guid: a0face25404f9a14f983b17c59a60e3a, type: 3}
-  m_PrefabInstance: {fileID: 3787000645230581199}
->>>>>>> refs/remotes/origin/healthbarworking
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5551429488262784592
 PrefabInstance:

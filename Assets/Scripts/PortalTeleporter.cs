@@ -6,6 +6,16 @@ public class PortalTeleporter : MonoBehaviour
 
     static float _cooldownUntil = 0f;
     const float COOLDOWN = 1f;
+    
+    [Tooltip("Tag obiektu LevelCounter")]
+    public string levelCounterTag = "LevelCounter";
+    
+    private LevelCounter _levelCounter;
+
+    void Awake()
+    {
+        _levelCounter = GameObject.FindGameObjectWithTag(levelCounterTag).GetComponent<LevelCounter>();
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -37,5 +47,8 @@ public class PortalTeleporter : MonoBehaviour
 
         _cooldownUntil = Time.time + COOLDOWN;
         Debug.Log($"[{gameObject.name}] Teleported to {other.transform.position}");
+        
+        // Increnemt Level counter
+        _levelCounter.nextLevel();
     }
 }

@@ -21,6 +21,22 @@ public class FacePlayer : MonoBehaviour
 
     void FindPlayer()
     {
+
+        var pm = FindFirstObjectByType<PlayerMovement>();
+        if (pm != null)
+        {
+            player = pm.transform;
+            return;
+        }
+
+        var cc = FindFirstObjectByType<CharacterController>();
+        if (cc != null)
+        {
+            player = cc.transform;
+            return;
+        }
+
+        // Fallback: jeśli tag istnieje
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null)
             player = playerObj.transform;

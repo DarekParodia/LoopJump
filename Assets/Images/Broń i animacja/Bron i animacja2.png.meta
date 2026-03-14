@@ -69,8 +69,13 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
+<<<<<<< HEAD
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+=======
     maxTextureSize: 128
     resizeAlgorithm: 1
+>>>>>>> refs/remotes/origin/ttt
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50

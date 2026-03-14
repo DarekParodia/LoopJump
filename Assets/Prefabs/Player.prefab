@@ -349,9 +349,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 1
+  m_Height: 1.6020265
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.020447373, z: 0}
 --- !u!114 &3097612692563619870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -394,6 +394,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerThrowingLine
   switchToLine: {fileID: 5656408948043635659, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   handImage: {fileID: 0}
+<<<<<<< HEAD
+  frameTime: 0.1
+  tex1: {fileID: 2800000, guid: 885e2f18f748e46e5a69bd5f23c68064, type: 3}
+  tex2: {fileID: 2800000, guid: c723bee4b6ee24f3199893febd3322bd, type: 3}
+  tex3: {fileID: 2800000, guid: 3e65df59881ef4e7cbcfdf188062f03c, type: 3}
+  tex4: {fileID: 2800000, guid: 3d2f7f6b58dcb4be88a709a97ec107fc, type: 3}
+=======
+>>>>>>> refs/remotes/origin/ttt
   gunImage: {fileID: 0}
   interfaceCanvas: {fileID: 0}
   frameTime: 0.1

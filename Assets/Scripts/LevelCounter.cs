@@ -2,17 +2,25 @@ using UnityEngine;
 
 public class LevelCounter : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    private int _currentLevel = 0;
+    public int currentLevel = 1;
+    public EnemySpawner spawner;
+
+    void Awake()
+    {
+        if (spawner == null)
+            spawner = FindObjectOfType<EnemySpawner>();
+    }
+
+    void Start()
+    {
+        currentLevel = 1;
+        spawner.StartLevel(currentLevel);
+    }
 
     public void nextLevel()
     {
-        _currentLevel++;   
-        Debug.Log(_currentLevel);
-    }
-
-    public int GetCurrentLevel()
-    {
-        return _currentLevel;
+        currentLevel++;
+        Debug.Log($"[LevelCounter] Level → {currentLevel}");
+        spawner.StartLevel(currentLevel);
     }
 }

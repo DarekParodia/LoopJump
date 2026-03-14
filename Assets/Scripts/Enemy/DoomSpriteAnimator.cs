@@ -90,15 +90,35 @@ public class DoomSpriteAnimator : MonoBehaviour
     /// <summary>
     /// Natychmiast ustawia stan animacji.
     /// </summary>
+    
     public void SetState(AnimState newState)
     {
-        if (CurrentState == newState && newState != AnimState.Pain) return;
-
+        if (CurrentState == newState && newState != AnimState.Pain)
+            return;
+	
         CurrentState = newState;
         currentFrame = 0;
         timer = 0f;
         IsAnimationFinished = false;
         hasPendingState = false;
+	
+        // FIX: Immediately apply frame 0 so there's no blank frame
+        ApplyCurrentFrame();
+    }
+	
+    private void ApplyCurrentFrame()
+    {
+        if (sprites == null || billboard == null) return;
+        DoomEnemySprites.DirectionalAnimation anim = GetCurrentAnim();
+        if (anim == null || anim.frames == null || anim.frames.Length == 0)
+            return;
+	
+        Sprite frame = anim.GetFrame(
+            billboard.CurrentDirection,
+            currentFrame
+        );
+        if (frame != null)
+            billboard.SpriteRenderer.sprite = frame;
     }
 
     /// <summary>

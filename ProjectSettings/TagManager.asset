@@ -6,7 +6,11 @@ TagManager:
   tags:
   - Interface
   - LevelCounter
+<<<<<<< HEAD
   - Enemy
+=======
+  - PlayerBullet
+>>>>>>> refs/remotes/origin/manyChanges
   layers:
   - Default
   - TransparentFX

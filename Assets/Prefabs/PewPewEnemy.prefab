@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ef24a3863111eb2db8e1d60d4824f9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoomSpriteAnimator
-  sprites: {fileID: 0}
+  sprites: {fileID: 11400000, guid: db94360226dcb041298398706a7a65c8, type: 2}
 --- !u!1 &6706938831306399701
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,7 +173,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6706938831306399701}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -272,16 +272,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 144ea81a00ba339398166f825a9176e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoomEnemyController
-  detectionRange: 15
+  detectionRange: 20
   requireLineOfSight: 1
   sightBlockMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  attackRange: 2
+  attackRange: 15
   attackDamage: 10
   attackCooldown: 1.5
   attackHitDelay: 0.3
-  maxHealth: 100
+  maxHealth: 1
   billboard: {fileID: 6968668276565790010}
   animator: {fileID: 8559868310979986895}
   playerTag: Player
@@ -298,12 +298,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d220e1831a1974faa1bef0b72a41e79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyShooter
-  projectilePrefab: {fileID: 9047319514542349248, guid: 4e4198162629a850caf258462387cd67, type: 3}
+  projectilePrefab: {fileID: 7655292021523916292, guid: af977ed2db13a78289db389aa91a8b42, type: 3}
   muzzlePoint: {fileID: 1357172927773059197}
-  damage: 15
+  damage: 25
   projectileSpeed: 18
   projectileLifetime: 4
   fireRate: 1.5
   leadTarget: 1
-  spreadAngle: 2
+  spreadAngle: 0
   aimHeightOffset: 0

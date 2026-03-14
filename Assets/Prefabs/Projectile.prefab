@@ -73,8 +73,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30852f98ec3e847d2953a9e3404b5244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
-  speed: 15
-  lifetime: 1
+  speed: 40
+  lifetime: 1.25
   tex1: {fileID: 2800000, guid: 55a2a5981a80fca0d85af02c96c70fe5, type: 3}
   tex2: {fileID: 2800000, guid: 06df0a6051778547e9596cbcbbba8061, type: 3}
   animationFps: 2

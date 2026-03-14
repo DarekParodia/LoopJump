@@ -24,7 +24,21 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField]public AudioClip gunProjectileSound;
     private AudioSource gunAudio;
     public LineRenderer gunLineRenderer;
-    
+    [SerializeField] private Texture2D tex1;
+    [SerializeField] private Texture2D tex2;
+    [SerializeField] private Texture2D tex3;
+    [SerializeField] private Texture2D tex4;
+
+    [Header("Gun UI Animation")]
+    [Tooltip("Czas na każdą klatkę strzału (tex2->tex3->tex4).")]
+    [SerializeField, Min(0f)] private float gunShotFrameTime = 0.06f;
+
+    [Tooltip("Jeśli włączone, podczas strzału UI broni będzie przyciemnione na czerwono (jak wcześniej).")]
+    [SerializeField] private bool tintGunOnShot = false;
+
+    private Coroutine _gunAnimCoroutine;
+    private Sprite _spr1, _spr2, _spr3, _spr4;
+
     [Header("Projectile")]
     [SerializeField] private Projectile projectilePrefab;
     [SerializeField] private Transform projectileSpawnPoint;
@@ -47,6 +61,15 @@ public class PlayerShooting : MonoBehaviour
 
         gunLineRenderer = GetComponent<LineRenderer>();
         gunAudio = GetComponent<AudioSource>();
+
+        // cache sprite'ów (UI Image potrzebuje Sprite, nie Texture2D)
+        _spr1 = CreateSprite(tex1);
+        _spr2 = CreateSprite(tex2);
+        _spr3 = CreateSprite(tex3);
+        _spr4 = CreateSprite(tex4);
+
+        // start/idle
+        SetGunSprite(_spr1);
 
         if (playerCamera == null)
         {
@@ -88,9 +111,10 @@ public class PlayerShooting : MonoBehaviour
             yield break;
 
         Shoot(ctx);
-        StarthootGunImage();
+        PlayGunShotAnimation();
+
         yield return new WaitForSeconds(timeBetweenShots);
-        EndShootGunImage();
+        CanShoot = true;
     }
 
     private void Shoot(InputAction.CallbackContext ctx)
@@ -130,7 +154,7 @@ public class PlayerShooting : MonoBehaviour
             end = origin + dir * range;
         }
 
-        Debug.DrawLine(origin, end, Color.red, 0.25f);
+        // Debug.DrawLine(origin, end, Color.red, 0.25f);
 
         if (gunLineRenderer == null)
             return;
@@ -144,15 +168,72 @@ public class PlayerShooting : MonoBehaviour
     {
         if (gunImage == null) return;
 
-        gunImage.color = new Color(0.55f, 0f, 0f, 1f); // dark red
+        if (tintGunOnShot)
+            gunImage.color = new Color(0.55f, 0f, 0f, 1f);
+        else
+            gunImage.color = Color.white;
+
         CanShoot = false;
     }
+
     private void EndShootGunImage()
     {
         if (gunImage == null) return;
 
-        gunImage.color = Color.green;
-        CanShoot = true;
+        SetGunSprite(_spr1);
+        gunImage.color = Color.white;
+    }
+
+    private void PlayGunShotAnimation()
+    {
+        if (gunImage == null)
+            return;
+
+        // blokuj strzał + kolor jako feedback (opcjonalnie)
+        StarthootGunImage();
+
+        if (_gunAnimCoroutine != null)
+            StopCoroutine(_gunAnimCoroutine);
+
+        _gunAnimCoroutine = StartCoroutine(GunShotAnimRoutine());
+    }
+
+    private IEnumerator GunShotAnimRoutine()
+    {
+        if (gunShotFrameTime <= 0f)
+        {
+            SetGunSprite(_spr4 != null ? _spr4 : _spr1);
+            EndShootGunImage();
+            yield break;
+        }
+
+        // tex2 -> tex3 -> tex4 -> tex1
+        if (_spr2 != null) { SetGunSprite(_spr2); yield return new WaitForSeconds(gunShotFrameTime); }
+        if (_spr3 != null) { SetGunSprite(_spr3); yield return new WaitForSeconds(gunShotFrameTime); }
+        if (_spr4 != null) { SetGunSprite(_spr4); yield return new WaitForSeconds(gunShotFrameTime); }
+
+        EndShootGunImage();
+    }
+
+    private void SetGunSprite(Sprite s)
+    {
+        if (gunImage == null)
+            return;
+
+        // ważne: UI Image ma tint przez 'color' – zostawiamy białe, żeby nie barwiło tekstur.
+        gunImage.color = Color.white;
+
+        if (s != null)
+            gunImage.sprite = s;
+    }
+
+    private static Sprite CreateSprite(Texture2D t)
+    {
+        if (t == null)
+            return null;
+
+        // Sprite.Create jest ok, ale robimy to raz w Start (cache), nie przy każdym strzale.
+        return Sprite.Create(t, new Rect(0, 0, t.width, t.height), new Vector2(0.5f, 0.5f), 100f);
     }
 
     private void OnDisable()

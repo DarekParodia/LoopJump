@@ -1,0 +1,6 @@
+[merge]
+    tool = unityyamlmerge
+
+[mergetool "unityyamlmerge"]
+    trustExitCode = false
+    cmd = '/home/darekparodia/.local/bin/UnityYAMLMerge' merge -p "$BASE" "$REMOTE" "$LOCAL" "$MERGED"

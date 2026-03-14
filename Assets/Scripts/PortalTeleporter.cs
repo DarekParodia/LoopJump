@@ -17,10 +17,12 @@ public class PortalTeleporter : MonoBehaviour
         _levelCounter = GameObject.FindGameObjectWithTag(levelCounterTag).GetComponent<LevelCounter>();
     }
 
+    private float _lastDot;
+
     void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
-        Debug.Log($"[{gameObject.name}] Player entered");
+        _lastDot = Vector3.Dot(transform.forward, other.transform.position - transform.position);
     }
 
     void OnTriggerStay(Collider other)
@@ -30,7 +32,10 @@ public class PortalTeleporter : MonoBehaviour
         if (linkedPortal == null) { Debug.LogError($"[{gameObject.name}] linkedPortal not assigned!"); return; }
 
         float dot = Vector3.Dot(transform.forward, other.transform.position - transform.position);
-        Debug.Log($"[{gameObject.name}] dot={dot:F2}");
+
+        // Teleport only when crossing from front (+) to back (-)
+        bool crossedFrontToBack = _lastDot >= 0f && dot < 0f;
+        _lastDot = dot;
 
         if (dot >= 0f) return;
 
@@ -42,8 +47,13 @@ public class PortalTeleporter : MonoBehaviour
 
         other.transform.position = m.MultiplyPoint3x4(other.transform.position);
         other.transform.rotation = m.rotation * other.transform.rotation;
-
+        
+        
         if (cc != null) cc.enabled = true;
+
+        // Transform player velocity through the portal
+        PlayerMovement pm = other.GetComponent<PlayerMovement>();
+        if (pm != null) pm.TransformVelocityThroughPortal(m);
 
         _cooldownUntil = Time.time + COOLDOWN;
         Debug.Log($"[{gameObject.name}] Teleported to {other.transform.position}");

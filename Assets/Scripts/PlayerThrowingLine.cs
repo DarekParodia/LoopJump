@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -24,6 +23,10 @@ public class PlayerThrowingLine : MonoBehaviour
     [SerializeField] private Texture2D tex3;
     [SerializeField] private Texture2D tex4;
 
+    [Header("UI")]
+    [Tooltip("Opcjonalnie: przypnij UI Image broni. Jeśli puste, skrypt spróbuje znaleźć child 'Gun' w Canvasie.")]
+    [SerializeField] private Image gunImage;
+
     [SerializeField] public Canvas interfaceCanvas;
     [SerializeField] public AudioClip lineThrowingSound;
     private AudioSource _throwAudio;
@@ -43,6 +46,13 @@ public class PlayerThrowingLine : MonoBehaviour
             var handTransform = interfaceCanvas.transform.Find("Hand");
             if (handTransform != null)
                 handImage = handTransform.GetComponent<Image>();
+        }
+
+        if (gunImage == null && interfaceCanvas != null)
+        {
+            var gunTransform = interfaceCanvas.transform.Find("Gun");
+            if (gunTransform != null)
+                gunImage = gunTransform.GetComponent<Image>();
         }
 
         _throwAudio = GetComponent<AudioSource>();
@@ -103,6 +113,10 @@ public class PlayerThrowingLine : MonoBehaviour
 
     private IEnumerator LineThrowAnimRoutine()
     {
+        // schowaj gun na czas rzutu liny
+        if (gunImage != null)
+            gunImage.enabled = false;
+
         // pokaż rękę/linię
         handImage.enabled = true;
         SetHandSprite(_spr1);
@@ -124,6 +138,8 @@ public class PlayerThrowingLine : MonoBehaviour
 
         // schowaj i wróć do guna
         handImage.enabled = false;
+        if (gunImage != null)
+            gunImage.enabled = true;
     }
 
     private void SetHandSprite(Sprite s)

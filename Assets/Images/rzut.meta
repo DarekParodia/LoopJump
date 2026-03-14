@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: df0925d02f3733cd7b53b72eda1be396
+=======
+guid: bdcd1e1112a754266bfafb42ebdd3896
+>>>>>>> refs/remotes/origin/ttt
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

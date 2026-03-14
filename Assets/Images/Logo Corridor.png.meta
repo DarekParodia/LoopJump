@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 80fe53124478cd1a4b070c084c6fd884
+=======
+guid: ef81967b450674f5b813c1bcbca6d7b5
+>>>>>>> refs/remotes/origin/ttt
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

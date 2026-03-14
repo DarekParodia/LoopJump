@@ -394,11 +394,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerThrowingLine
   switchToLine: {fileID: 5656408948043635659, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   handImage: {fileID: 0}
-  frameTime: 0.06
-  tex1: {fileID: 2800000, guid: dffef66376be4fa480fb02b19edbe903, type: 3}
-  tex2: {fileID: 2800000, guid: a0fc465d6cf04254a2938578735e2383, type: 3}
-  tex3: {fileID: 2800000, guid: 9a16690aa886986bca847f9ec2954a94, type: 3}
-  tex4: {fileID: 2800000, guid: 9a16690aa886986bca847f9ec2954a94, type: 3}
+  frameTime: 0.1
+  tex1: {fileID: 2800000, guid: 885e2f18f748e46e5a69bd5f23c68064, type: 3}
+  tex2: {fileID: 2800000, guid: c723bee4b6ee24f3199893febd3322bd, type: 3}
+  tex3: {fileID: 2800000, guid: 3e65df59881ef4e7cbcfdf188062f03c, type: 3}
+  tex4: {fileID: 2800000, guid: 3d2f7f6b58dcb4be88a709a97ec107fc, type: 3}
   interfaceCanvas: {fileID: 0}
   lineThrowingSound: {fileID: 0}
 --- !u!1 &8320747583618150936

@@ -107,7 +107,7 @@ MonoBehaviour:
   interfaceCanvas: {fileID: 0}
   gunImage: {fileID: 0}
   damagePerShot: 20
-  timeBetweenShots: 0.45
+  timeBetweenShots: 0.25
   range: 20
   CanShoot: 1
   gunProjectileSound: {fileID: 8300000, guid: c3abe1647ac6b4de493c6e634bd3087c, type: 3}

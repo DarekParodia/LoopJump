@@ -3015,7 +3015,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f6f1a51e086d8a4491f3b4b8503ab92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealPad
-  healAmount: 6
+  healAmount: 12
   cooldown: 10
   cooldownText: {fileID: 0}
 --- !u!1 &5356690172730379098
